@@ -39,6 +39,7 @@
         <!-- Page JS Plugins CSS -->
         <link rel="stylesheet" href="<?php echo BASE_PATH ?>/assets/js/plugins/slick/slick.min.css">
         <link rel="stylesheet" href="<?php echo BASE_PATH ?>/assets/js/plugins/slick/slick-theme.min.css">
+        <link rel="stylesheet" href="<?php echo BASE_PATH ?>/assets/js/plugins/datatables/jquery.dataTables.min.css">
 
         <!-- Bootstrap and OneUI CSS framework -->
         <link rel="stylesheet" href="<?php echo BASE_PATH ?>/assets/css/bootstrap.min.css">
@@ -48,10 +49,10 @@
         <!-- <link rel="stylesheet" id="css-theme" href="<?php echo BASE_PATH ?>/assets/css/themes/flat.min.css"> -->
         <!-- END Stylesheets -->
 
-        <?php include 'librerias_js.php'; ?>            
+        <!-- Librerias Rapipets v3 -->    
+        <?php include 'librerias_js.php'; ?>          
     </head>
-    <body>
-        <?php echo phpinfo(); ?>
+    <body>  
         <!-- Page Container -->
         <!--
             Available Classes:
@@ -425,6 +426,18 @@
                                 <li>
                                     <a class="active" href="index.php"><i class="si si-speedometer"></i><span class="sidebar-mini-hide">Dashboard</span></a>
                                 </li>
+                                <li class="open">
+                                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span class="sidebar-mini-hide">Artículos</span></a>
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="return loadController('Animal/index');">Animales</a>
+                                        </li>
+                                        <li>
+                                            <a href="base_pages_blank.html">Marcas</a>
+                                        </li>
+
+                                    </ul>
+                                </li>                                
                             </ul>
                         </div>
                         <!-- END Side Content -->
@@ -438,6 +451,7 @@
             <!-- Header -->
             <header id="header-navbar" class="content-mini content-mini-full">
                 <!-- Header Navigation Right -->
+                <?php // echo $usuario ?>
                 <ul class="nav-header pull-right">
                     <li>
                         <div class="btn-group">
@@ -519,19 +533,6 @@
 
             <!-- Main Container -->
             <main id="main-container">
-                <!-- Page Header -->
-                <div class="content bg-image overflow-hidden" style="background-image: url('<?php echo BASE_PATH ?>/assets/img/photos/photo3@2x.jpg');">
-                    <div class="push-50-t push-15">
-                        <h1 class="h2 text-white animated zoomIn">Panel de Control Rapipets</h1>
-                        <h2 class="h5 text-white-op animated zoomIn">Bienvenido <?php echo $usuario ?></h2>
-                    </div>
-                </div>
-                <!-- END Page Header -->
-
-                <!-- Page Content -->
-                <div id="main_container" class="content"></div>                
-
-                <!-- END Page Content -->
             </main>
             <!-- END Main Container -->
 
@@ -604,9 +605,11 @@
         <!-- Page Plugins -->
         <script src="<?php echo BASE_PATH ?>/assets/js/plugins/slick/slick.min.js"></script>
         <script src="<?php echo BASE_PATH ?>/assets/js/plugins/chartjs/Chart.min.js"></script>
+        <script src="<?php echo BASE_PATH ?>/assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
 
         <!-- Page JS Code -->
-        <script src="<?php echo BASE_PATH ?>/assets/js/pages/base_pages_dashboard.js"></script>
+   <!--      <script src="<?php echo BASE_PATH ?>/assets/js/pages/base_pages_dashboard.js"></script>  -->
+        <script src="<?php echo BASE_PATH ?>/assets/js/pages/base_tables_datatables.js"></script> 
       
         <script>
             jQuery(function () {

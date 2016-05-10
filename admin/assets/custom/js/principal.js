@@ -21,7 +21,7 @@ function loadController(route) {
 
 
     request.done(function(result) {
-        $('#main_container').html(result);		
+        $('#main-container').html(result);		
 		
 		//establece los tabs por defecto
 		//getDefaultTabs(action);			
