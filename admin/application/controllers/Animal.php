@@ -6,14 +6,14 @@ class Animal extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('animal_model','animal');
+		$this->load->model('ABM/animal_model','animal');
 	}
 
 
 	public function index()
 	{
 		$this->load->helper('url');
-		$this->load->view('animal_view');
+		$this->load->view('ABM/animal_view');
 	}
 
 
@@ -69,9 +69,9 @@ class Animal extends CI_Controller {
 		$this->_validate(true);
 
 		$data = array(
-				'nombre' => $this->input->post('nombre'),
-				'conraza' => $this->input->post('conraza'),
-				'contamanios' => $this->input->post('contamanios'),
+				'animales_nombre' => $this->input->post('nombre'),
+				'animales_conraza' => $this->input->post('conraza'),
+				'animales_contamanios' => $this->input->post('contamanios'),
 			);
 
 		$insert = $this->animal->save($data);
@@ -85,12 +85,12 @@ class Animal extends CI_Controller {
 		$this->_validate();
 
 		$data = array(
-				'nombre' => $this->input->post('nombre'),
-				'conraza' => $this->input->post('conraza'),
-				'contamanios' => $this->input->post('contamanios'),
+				'animales_nombre' => $this->input->post('nombre'),
+				'animales_conraza' => $this->input->post('conraza'),
+				'animales_contamanios' => $this->input->post('contamanios'),
 			);
 
-		$this->animal->update(array('id' => $this->input->post('id')), $data);
+		$this->animal->update(array('animales_id' => $this->input->post('id')), $data);
 
 		echo json_encode(array("status" => TRUE));
 	}

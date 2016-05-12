@@ -3,13 +3,13 @@
     <div class="row items-push">
         <div class="col-sm-7">
             <h1 class="page-heading">
-                Animales
+                Packaging
             </h1>
         </div>
         <div class="col-sm-5 text-right hidden-xs">
             <ol class="breadcrumb push-10-t">
-                <li>Artículos</li>
-                <li><a class="link-effect" href="">Animales</a></li>
+                <li>ABM</li>
+                <li><a class="link-effect" href="javascript:void(0);" onclick="return loadController('Packaging/index');">Packaging</a></li>
             </ol>
         </div>
     </div>
@@ -19,7 +19,7 @@
 <div class="content">
     <div class="block">
         <div class="block-header">
-            <button class="btn btn-success" onclick="add_animal()"><i class="glyphicon glyphicon-plus"></i> Nuevo Animal</button>
+            <button class="btn btn-success" onclick="add_packaging()"><i class="glyphicon glyphicon-plus"></i> Nuevo Packaging</button>
             <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Recargar</button>
         </div>
 
@@ -27,9 +27,7 @@
             <table id="table" class="table table-bordered table-striped js-dataTable-full"  cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Con Raza</th>
-                        <th >Con Tamaños</th>
+                        <th>Packaging</th>
                         <th style="width:70px;">Acción</th>
                     </tr>
                 </thead>
@@ -56,7 +54,7 @@ $(document).ready(function() {
 
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "<?php echo site_url('Animal/ajax_list')?>",
+            "url": "<?php echo BASE_PATH ?>/Packaging/ajax_list",
             "type": "POST"
         },
 
@@ -67,7 +65,6 @@ $(document).ready(function() {
             "orderable": false, //set not orderable
         },
         ],
-
     });
 
 
@@ -89,17 +86,17 @@ $(document).ready(function() {
 
 
 
-function add_animal()
+function add_packaging()
 {
     save_method = 'add';
     $('#form')[0].reset(); // reset form on modals
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
     $('#modal_form').modal('show'); // show bootstrap modal
-    $('.modal-title').text('Nuevo Animal'); // Set Title to Bootstrap modal title
+    $('.modal-title').text('Nuevo Packaging'); // Set Title to Bootstrap modal title
 }
 
-function edit_animal(id)
+function edit_packaging(id)
 {
     save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
@@ -108,18 +105,17 @@ function edit_animal(id)
 
     //Ajax Load data from ajax
     $.ajax({
-        url : "<?php echo site_url('animal/ajax_edit/')?>/" + id,
+        url : "<?php echo BASE_PATH ?>/Packaging/ajax_edit/" + id,        
         type: "GET",
         dataType: "JSON",
         success: function(data)
         {
             $('[name="id"]').val(data.id);
             $('[name="nombre"]').val(data.nombre);
-            $('[name="contamanios"]').val(data.contamanios);
-            $('[name="conraza"]').val(data.conraza);
+           
 
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Editar Animal'); // Set title to Bootstrap modal title
+            $('.modal-title').text('Editar Packaging'); // Set title to Bootstrap modal title
 
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -140,15 +136,17 @@ function save()
     $('#btnSave').attr('disabled',true); //set button disable 
     var url;
 
+
     if(save_method == 'add') {
-        url = "<?php echo site_url('animal/ajax_add')?>";
+        url = "<?php echo BASE_PATH ?>/Packaging/ajax_add";
     } else {
-        url = "<?php echo site_url('animal/ajax_update')?>";
+        url = "<?php echo BASE_PATH ?>/Packaging/ajax_update";
     }
+
 
     // ajax adding data to database
     $.ajax({
-        url : url,
+        url : url ,
         type: "POST",
         data: $('#form').serialize(),
         dataType: "JSON",
@@ -183,13 +181,13 @@ function save()
     });
 }
 
-function delete_animal(id)
+function delete_packaging(id)
 {
-    if(confirm('¿Eliminar Animal?'))
+    if(confirm('¿Eliminar Packaging?'))
     {
         // ajax delete data to database
         $.ajax({
-            url : "<?php echo site_url('animal/ajax_delete')?>/"+id,
+            url : "<?php echo BASE_PATH ?>/Packaging/ajax_delete/" + id,
             type: "POST",
             dataType: "JSON",
             success: function(data)
@@ -215,7 +213,7 @@ function delete_animal(id)
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title">Animal Form</h3>
+                <h3 class="modal-title">Packaging Form</h3>
             </div>
             <div class="modal-body form">
                 <form action="#" id="form" class="form-horizontal">
@@ -227,32 +225,6 @@ function delete_animal(id)
                             <label class="control-label col-md-3">Nombre</label>
                             <div class="col-md-9">
                                 <input name="nombre" placeholder="Nombre" class="form-control" type="text">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-
-                        <!-- CON RAZA --> 
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Con Raza</label>
-                            <div class="col-md-9">
-                                <select name="conraza" class="form-control">
-                                    <option value="">--Seleccione--</option>
-                                    <option value="1">Sí</option>
-                                    <option value="0">No</option>
-                                </select>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-
-                        <!-- CON TAMANIOS --> 
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Con Tama&ntilde;os</label>
-                            <div class="col-md-9">
-                                <select name="contamanios" class="form-control">
-                                    <option value="">--Seleccione--</option>
-                                    <option value="1">Sí</option>
-                                    <option value="0">No</option>
-                                </select>
                                 <span class="help-block"></span>
                             </div>
                         </div>

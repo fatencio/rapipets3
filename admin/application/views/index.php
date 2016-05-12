@@ -427,15 +427,20 @@
                                     <a class="active" href="index.php"><i class="si si-speedometer"></i><span class="sidebar-mini-hide">Dashboard</span></a>
                                 </li>
                                 <li class="open">
-                                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span class="sidebar-mini-hide">Artículos</span></a>
+                                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span class="sidebar-mini-hide">ABM</span></a>
                                     <ul>
                                         <li>
                                             <a href="javascript:void(0);" onclick="return loadController('Animal/index');">Animales</a>
                                         </li>
                                         <li>
-                                            <a href="base_pages_blank.html">Marcas</a>
+                                            <a href="javascript:void(0);" onclick="return loadController('Packaging/index');">Packaging</a>
                                         </li>
-
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="return loadController('Tamanio/index');">Tamaños</a>
+                                        </li>                                        
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="return loadController('Descuento/index');">Descuentos</a>
+                                        </li>
                                     </ul>
                                 </li>                                
                             </ul>
