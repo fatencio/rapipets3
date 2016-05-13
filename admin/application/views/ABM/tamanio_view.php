@@ -114,7 +114,7 @@ function edit_tamanio(id)
         {
             $('[name="id"]').val(data.id);
             $('[name="nombre"]').val(data.nombre);
-           
+            $('[name="animal_asignado"]').val(data.tamanio_id_animal);
 
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
             $('.modal-title').text('Editar Tamaño'); // Set title to Bootstrap modal title
@@ -236,11 +236,13 @@ function delete_tamanio(id)
                         <div class="form-group">
                             <label class="control-label col-md-3">Animal Asignado</label>
                             <div class="col-md-9">
-                                <select name="animal_asignado" class="form-control">
-                                    <option value="">--Seleccione--</option>
-                                    <option value="1">Sí</option>
-                                    <option value="0">No</option>
-                                </select>
+                                <select name="animal_asignado" class="form-control">                       
+                                    <option selected value="">Seleccione...</option>
+
+                                    <?php foreach($animales as $animal){ ?>
+                                        <option value="<?php echo $animal->id ?>"><?php echo $animal->nombre ?></option> 
+                                    <?php } ?>
+                                </select>  
                                 <span class="help-block"></span>
                             </div>
                         </div>

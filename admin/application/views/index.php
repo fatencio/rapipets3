@@ -433,7 +433,7 @@
                                             <a href="javascript:void(0);" onclick="return loadController('Animal/index');">Animales</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0);" onclick="return loadController('Packaging/index');">Packaging</a>
+                                            <a href="javascript:void(0);" onclick="return loadController('Presentacion/index');">Presentaciones</a>
                                         </li>
                                         <li>
                                             <a href="javascript:void(0);" onclick="return loadController('Tamanio/index');">Tamaños</a>

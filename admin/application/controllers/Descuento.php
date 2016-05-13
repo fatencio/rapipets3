@@ -59,8 +59,8 @@ class Descuento extends CI_Controller {
 		$this->_validate(true);
 
 		$data = array(
-				'descuentos_nombre' => $this->input->post('nombre'),
-				'descuentos_porcentaje' => $this->input->post('porcentaje'),
+				'descuento_nombre' => $this->input->post('nombre'),
+				'descuento_porcentaje' => $this->input->post('porcentaje'),
 			);
 
 		$insert = $this->descuento->save($data);
@@ -74,11 +74,11 @@ class Descuento extends CI_Controller {
 		$this->_validate();
 
 		$data = array(
-				'descuentos_nombre' => $this->input->post('nombre'),
-				'descuentos_porcentaje' => $this->input->post('porcentaje'),
+				'descuento_nombre' => $this->input->post('nombre'),
+				'descuento_porcentaje' => $this->input->post('porcentaje'),
 			);
 
-		$this->descuento->update(array('descuentos_id' => $this->input->post('id')), $data);
+		$this->descuento->update(array('descuento_id' => $this->input->post('id')), $data);
 
 		echo json_encode(array("status" => TRUE));
 	}

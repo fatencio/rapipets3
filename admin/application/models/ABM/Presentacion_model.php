@@ -1,14 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Packaging_model extends CI_Model {
+class Presentacion_model extends CI_Model {
 
-	var $table = 'packaging';
+	var $table = 'presentacion';
 
-	var $column_order = array('packaging_nombre', null); 	// columnas con la opcion de orden habilitada
-	var $column_search = array('packaging_nombre'); 		// columnas con la opcion de busqueda habilitada
+	var $column_order = array('presentacion_nombre', null); 	// columnas con la opcion de orden habilitada
+	var $column_search = array('presentacion_nombre'); 		// columnas con la opcion de busqueda habilitada
 
-	var $order = array('packaging_nombre' => 'asc'); // default order 
+	var $order = array('presentacion_nombre' => 'asc'); // default order 
 
 
 	public function __construct()
@@ -21,7 +21,7 @@ class Packaging_model extends CI_Model {
 	private function _get_datatables_query()
 	{
 		
-	    $this->db->select('packaging_id as id, packaging_nombre as nombre');
+	    $this->db->select('presentacion_id as id, presentacion_nombre as nombre');
 		$this->db->from($this->table);
 		
 		$i = 0;
@@ -88,9 +88,9 @@ class Packaging_model extends CI_Model {
 
 public function get_by_id($id)
 	{
-		$this->db->select('packaging_id as id, packaging_nombre as nombre');
+		$this->db->select('presentacion_id as id, presentacion_nombre as nombre');
 		$this->db->from($this->table);
-		$this->db->where('packaging_id',$id);
+		$this->db->where('presentacion_id',$id);
 		$query = $this->db->get();
 
 		return $query->row();
@@ -100,7 +100,7 @@ public function get_by_id($id)
 	public function check_duplicated($name)
 	{
 		$this->db->from($this->table);
-		$this->db->where('packaging_nombre', $name);
+		$this->db->where('presentacion_nombre', $name);
 
 		return $this->db->count_all_results();
 	}
@@ -109,8 +109,8 @@ public function get_by_id($id)
 	public function check_duplicated_edit($id, $name)
 	{
 		$this->db->from($this->table);
-		$this->db->where('packaging_nombre', $name);
-		$this->db->where('packaging_id !=', $id);
+		$this->db->where('presentacion_nombre', $name);
+		$this->db->where('presentacion_id !=', $id);
 
 		return $this->db->count_all_results();
 	}	
@@ -132,7 +132,7 @@ public function get_by_id($id)
 
 	public function delete_by_id($id)
 	{
-		$this->db->where('packaging_id', $id);
+		$this->db->where('presentacion_id', $id);
 		$this->db->delete($this->table);
 	}
 

@@ -8,13 +8,18 @@ class Tamanio extends CI_Controller {
 		parent::__construct();
 		$this->load->model('ABM/tamanio_model','tamanio');
 		$this->load->model('ABM/animal_model','animal');
+
+		$this->load->helper('url');		
 	}
 
 
 	public function index()
 	{
-		$this->load->helper('url');
-		$this->load->view('ABM/tamanio_view');
+		$datos_vista = array();
+
+		$datos_vista["animales"] = $this->animal->get_all();
+
+		$this->load->view('ABM/tamanio_view', $datos_vista);
 	}
 
 
@@ -53,8 +58,6 @@ class Tamanio extends CI_Controller {
 	{
 		$data = $this->tamanio->get_by_id($id);
 
-	//	$data = $this->animal->get_by_id($id);
-
 		echo json_encode($data);
 	}
 
@@ -64,7 +67,8 @@ class Tamanio extends CI_Controller {
 		$this->_validate(true);
 
 		$data = array(
-				'tamanios_nombre' => $this->input->post('nombre'),
+				'tamanio_nombre' => $this->input->post('nombre'),
+				'tamanio_id_animal' => $this->input->post('animal_asignado'),
 			);
 
 		$insert = $this->tamanio->save($data);
@@ -78,10 +82,11 @@ class Tamanio extends CI_Controller {
 		$this->_validate();
 
 		$data = array(
-				'tamanios_nombre' => $this->input->post('nombre'),
+				'tamanio_nombre' => $this->input->post('nombre'),
+				'tamanio_id_animal' => $this->input->post('animal_asignado'),				
 			);
 
-		$this->tamanio->update(array('tamanios_id' => $this->input->post('id')), $data);
+		$this->tamanio->update(array('tamanio_id' => $this->input->post('id')), $data);
 
 		echo json_encode(array("status" => TRUE));
 	}

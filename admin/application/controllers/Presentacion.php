@@ -1,45 +1,45 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Packaging extends CI_Controller {
+class Presentacion extends CI_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('ABM/packaging_model','packaging');
+		$this->load->model('ABM/presentacion_model','presentacion');
 	}
 
 
 	public function index()
 	{
 		$this->load->helper('url');
-		$this->load->view('ABM/packaging_view');
+		$this->load->view('ABM/presentacion_view');
 	}
 
 
 	public function ajax_list()
 	{
-		$list = $this->packaging->get_datatables();
+		$list = $this->presentacion->get_datatables();
 		$data = array();
 		$no = $_POST['start'];
 
-		foreach ($list as $packaging) {
+		foreach ($list as $presentacion) {
 			$no++;
 			$row = array();
 
-			$row[] = $packaging->nombre;
+			$row[] = $presentacion->nombre;
 
 			//add html for action
-			$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Editar"    onclick="edit_packaging('."'".$packaging->id."'".')"><i class="glyphicon glyphicon-pencil"></i></a>
-				  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Eliminar" onclick="delete_packaging('."'".$packaging->id."'".')"><i class="glyphicon glyphicon-trash"></i></a>';
+			$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Editar"    onclick="edit_presentacion('."'".$presentacion->id."'".')"><i class="glyphicon glyphicon-pencil"></i></a>
+				  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Eliminar" onclick="delete_presentacion('."'".$presentacion->id."'".')"><i class="glyphicon glyphicon-trash"></i></a>';
 		
 			$data[] = $row;
 		}
 
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->packaging->count_all(),
-						"recordsFiltered" => $this->packaging->count_filtered(),
+						"recordsTotal" => $this->presentacion->count_all(),
+						"recordsFiltered" => $this->presentacion->count_filtered(),
 						"data" => $data,
 				);
 		//output to json format
@@ -49,7 +49,7 @@ class Packaging extends CI_Controller {
 
 	public function ajax_edit($id)
 	{
-		$data = $this->packaging->get_by_id($id);
+		$data = $this->presentacion->get_by_id($id);
 
         echo json_encode($data);
 	}
@@ -60,11 +60,11 @@ class Packaging extends CI_Controller {
 		$this->_validate(true);
 
 		$data = array(
-				'packaging_nombre' => $this->input->post('nombre'),
+				'presentacion_nombre' => $this->input->post('nombre'),
 			
 			);
 
-		$insert = $this->packaging->save($data);
+		$insert = $this->presentacion->save($data);
 
 		echo json_encode(array("status" => TRUE));
 	}
@@ -75,18 +75,18 @@ class Packaging extends CI_Controller {
 		$this->_validate();
 
 		$data = array(
-				'packaging_nombre' => $this->input->post('nombre'),
+				'presentacion_nombre' => $this->input->post('nombre'),
 				
 			);
 
-		$this->packaging->update(array('packaging_id' => $this->input->post('id')), $data);
+		$this->presentacion->update(array('presentacion_id' => $this->input->post('id')), $data);
 
 		echo json_encode(array("status" => TRUE));
 	}
 
 	public function ajax_delete($id)
 	{
-		$this->packaging->delete_by_id($id);
+		$this->presentacion->delete_by_id($id);
 		echo json_encode(array("status" => TRUE));
 	}
 
@@ -107,9 +107,9 @@ class Packaging extends CI_Controller {
 
 		// Valida que no exista un registro con el mismo nombre
 		if ($add)
-			$duplicated = $this->packaging->check_duplicated(trim($this->input->post('nombre')));
+			$duplicated = $this->presentacion->check_duplicated(trim($this->input->post('nombre')));
 		else
-			$duplicated = $this->packaging->check_duplicated_edit($this->input->post('id'), trim($this->input->post('nombre')));
+			$duplicated = $this->presentacion->check_duplicated_edit($this->input->post('id'), trim($this->input->post('nombre')));
 
 		if ($duplicated > 0)
 		{

@@ -3,13 +3,13 @@
     <div class="row items-push">
         <div class="col-sm-7">
             <h1 class="page-heading">
-                Packaging
+                Presentaciones
             </h1>
         </div>
         <div class="col-sm-5 text-right hidden-xs">
             <ol class="breadcrumb push-10-t">
                 <li>ABM</li>
-                <li><a class="link-effect" href="javascript:void(0);" onclick="return loadController('Packaging/index');">Packaging</a></li>
+                <li><a class="link-effect" href="javascript:void(0);" onclick="return loadController('Presentacion/index');">Presentaciones</a></li>
             </ol>
         </div>
     </div>
@@ -19,7 +19,7 @@
 <div class="content">
     <div class="block">
         <div class="block-header">
-            <button class="btn btn-success" onclick="add_packaging()"><i class="glyphicon glyphicon-plus"></i> Nuevo Packaging</button>
+            <button class="btn btn-success" onclick="add_presentacion()"><i class="glyphicon glyphicon-plus"></i> Nueva Presentacion</button>
             <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Recargar</button>
         </div>
 
@@ -27,7 +27,7 @@
             <table id="table" class="table table-bordered table-striped js-dataTable-full"  cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th>Packaging</th>
+                        <th>Nombre</th>
                         <th style="width:70px;">Acción</th>
                     </tr>
                 </thead>
@@ -54,7 +54,7 @@ $(document).ready(function() {
 
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "<?php echo BASE_PATH ?>/Packaging/ajax_list",
+            "url": "<?php echo BASE_PATH ?>/Presentacion/ajax_list",
             "type": "POST"
         },
 
@@ -86,17 +86,17 @@ $(document).ready(function() {
 
 
 
-function add_packaging()
+function add_presentacion()
 {
     save_method = 'add';
     $('#form')[0].reset(); // reset form on modals
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
     $('#modal_form').modal('show'); // show bootstrap modal
-    $('.modal-title').text('Nuevo Packaging'); // Set Title to Bootstrap modal title
+    $('.modal-title').text('Nueva Presentación'); // Set Title to Bootstrap modal title
 }
 
-function edit_packaging(id)
+function edit_presentacion(id)
 {
     save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
@@ -105,7 +105,7 @@ function edit_packaging(id)
 
     //Ajax Load data from ajax
     $.ajax({
-        url : "<?php echo BASE_PATH ?>/Packaging/ajax_edit/" + id,        
+        url : "<?php echo BASE_PATH ?>/Presentacion/ajax_edit/" + id,        
         type: "GET",
         dataType: "JSON",
         success: function(data)
@@ -115,7 +115,7 @@ function edit_packaging(id)
            
 
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Editar Packaging'); // Set title to Bootstrap modal title
+            $('.modal-title').text('Editar Presentación'); // Set title to Bootstrap modal title
 
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -138,9 +138,9 @@ function save()
 
 
     if(save_method == 'add') {
-        url = "<?php echo BASE_PATH ?>/Packaging/ajax_add";
+        url = "<?php echo BASE_PATH ?>/Presentacion/ajax_add";
     } else {
-        url = "<?php echo BASE_PATH ?>/Packaging/ajax_update";
+        url = "<?php echo BASE_PATH ?>/Presentacion/ajax_update";
     }
 
 
@@ -181,13 +181,13 @@ function save()
     });
 }
 
-function delete_packaging(id)
+function delete_presentacion(id)
 {
-    if(confirm('¿Eliminar Packaging?'))
+    if(confirm('¿Eliminar Presentación?'))
     {
         // ajax delete data to database
         $.ajax({
-            url : "<?php echo BASE_PATH ?>/Packaging/ajax_delete/" + id,
+            url : "<?php echo BASE_PATH ?>/Presentacion/ajax_delete/" + id,
             type: "POST",
             dataType: "JSON",
             success: function(data)
@@ -213,7 +213,7 @@ function delete_packaging(id)
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title">Packaging Form</h3>
+                <h3 class="modal-title">Presentacion Form</h3>
             </div>
             <div class="modal-body form">
                 <form action="#" id="form" class="form-horizontal">

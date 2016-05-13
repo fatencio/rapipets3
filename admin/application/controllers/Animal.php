@@ -69,9 +69,9 @@ class Animal extends CI_Controller {
 		$this->_validate(true);
 
 		$data = array(
-				'animales_nombre' => $this->input->post('nombre'),
-				'animales_conraza' => $this->input->post('conraza'),
-				'animales_contamanios' => $this->input->post('contamanios'),
+				'animal_nombre' => $this->input->post('nombre'),
+				'animal_conraza' => $this->input->post('conraza'),
+				'animal_contamanios' => $this->input->post('contamanios'),
 			);
 
 		$insert = $this->animal->save($data);
@@ -85,12 +85,12 @@ class Animal extends CI_Controller {
 		$this->_validate();
 
 		$data = array(
-				'animales_nombre' => $this->input->post('nombre'),
-				'animales_conraza' => $this->input->post('conraza'),
-				'animales_contamanios' => $this->input->post('contamanios'),
+				'animal_nombre' => $this->input->post('nombre'),
+				'animal_conraza' => $this->input->post('conraza'),
+				'animal_contamanios' => $this->input->post('contamanios'),
 			);
 
-		$this->animal->update(array('animales_id' => $this->input->post('id')), $data);
+		$this->animal->update(array('animal_id' => $this->input->post('id')), $data);
 
 		echo json_encode(array("status" => TRUE));
 	}

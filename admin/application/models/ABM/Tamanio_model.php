@@ -3,12 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Tamanio_model extends CI_Model {
 
-	var $table = 'tamanios';
+	var $table = 'tamanio';
 
-	var $column_order = array('tamanios_nombre', 'animales_nombre', null); 	// columnas con la opcion de orden habilitada
-	var $column_search = array('tamanios_nombre', 'animales_nombre'); 		// columnas con la opcion de busqueda habilitada
+	var $column_order = array('tamanio_nombre', 'animal_nombre', null); 	// columnas con la opcion de orden habilitada
+	var $column_search = array('tamanio_nombre', 'animal_nombre'); 		// columnas con la opcion de busqueda habilitada
 
-	var $order = array('tamanios_nombre' => 'asc'); // default order 
+	var $order = array('tamanio_nombre' => 'asc'); // default order 
 
 
 	public function __construct()
@@ -22,9 +22,9 @@ class Tamanio_model extends CI_Model {
 	{
          
 		
-		$this->db->select('tamanios_id as id, tamanios_nombre as nombre, animales_nombre as animal_asignado');
+		$this->db->select('tamanio_id as id, tamanio_nombre as nombre, animal_nombre as animal_asignado');
         $this->db->from($this->table);
-		$this->db->join('animales', 'tamanios_id_animal = animales_id');
+		$this->db->join('animal', 'tamanio_id_animal = animal_id');
 
 		$i = 0;
 	
@@ -91,9 +91,9 @@ class Tamanio_model extends CI_Model {
 	public function get_by_id($id)
 	{
 	
-		$this->db->select('tamanios_id as id, tamanios_nombre as nombre');
+		$this->db->select('tamanio_id as id, tamanio_nombre as nombre, tamanio_id_animal');
 		$this->db->from($this->table);
-		$this->db->where('tamanios_id',$id);
+		$this->db->where('tamanio_id',$id);
 		$query = $this->db->get();
 
 		return $query->row();
@@ -103,7 +103,7 @@ class Tamanio_model extends CI_Model {
 	public function check_duplicated($name)
 	{
 		$this->db->from($this->table);
-		$this->db->where('tamanios_nombre', $name);
+		$this->db->where('tamanio_nombre', $name);
 
 		return $this->db->count_all_results();
 	}
@@ -112,8 +112,8 @@ class Tamanio_model extends CI_Model {
 	public function check_duplicated_edit($id, $name)
 	{
 		$this->db->from($this->table);
-		$this->db->where('tamanios_nombre', $name);
-		$this->db->where('tamanios_id !=', $id);
+		$this->db->where('tamanio_nombre', $name);
+		$this->db->where('tamanio_id !=', $id);
 
 		return $this->db->count_all_results();
 	}	
@@ -135,7 +135,7 @@ class Tamanio_model extends CI_Model {
 
 	public function delete_by_id($id)
 	{
-		$this->db->where('tamanios_id', $id);
+		$this->db->where('tamanio_id', $id);
 		$this->db->delete($this->table);
 	}
 

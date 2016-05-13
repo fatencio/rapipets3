@@ -3,12 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Descuento_model extends CI_Model {
 
-	var $table = 'descuentos';
+	var $table = 'descuento';
 
-	var $column_order = array('descuentos_nombre', 'descuentos_porcentaje', null); 	// columnas con la opcion de orden habilitada
-	var $column_search = array('descuentos_nombre', 'descuentos_porcentaje'); 		// columnas con la opcion de busqueda habilitada
+	var $column_order = array('descuento_nombre', 'descuento_porcentaje', null); 	// columnas con la opcion de orden habilitada
+	var $column_search = array('descuento_nombre', 'descuento_porcentaje'); 		// columnas con la opcion de busqueda habilitada
 
-	var $order = array('descuentos_nombre' => 'asc'); // default order 
+	var $order = array('descuento_nombre' => 'asc'); // default order 
 
 
 	public function __construct()
@@ -22,7 +22,7 @@ class Descuento_model extends CI_Model {
 	{
 		
 		
-        $this->db->select('descuentos_id as id, descuentos_nombre as nombre, descuentos_porcentaje as porcentaje');
+        $this->db->select('descuento_id as id, descuento_nombre as nombre, descuento_porcentaje as porcentaje');
 		$this->db->from($this->table);
 
 
@@ -92,9 +92,9 @@ class Descuento_model extends CI_Model {
 	public function get_by_id($id)
 	{
 		
-        $this->db->select('descuentos_id as id, descuentos_nombre as nombre, descuentos_porcentaje as porcentaje');
+        $this->db->select('descuento_id as id, descuento_nombre as nombre, descuento_porcentaje as porcentaje');
 		$this->db->from($this->table);
-		$this->db->where('descuentos_id',$id);
+		$this->db->where('descuento_id',$id);
 		$query = $this->db->get();
 
 		return $query->row();
@@ -104,7 +104,7 @@ class Descuento_model extends CI_Model {
 	public function check_duplicated($name)
 	{
 		$this->db->from($this->table);
-		$this->db->where('descuentos_nombre', $name);
+		$this->db->where('descuento_nombre', $name);
 
 		return $this->db->count_all_results();
 	}
@@ -113,8 +113,8 @@ class Descuento_model extends CI_Model {
 	public function check_duplicated_edit($id, $name)
 	{
 		$this->db->from($this->table);
-		$this->db->where('descuentos_nombre', $name);
-		$this->db->where('descuentos_id !=', $id);
+		$this->db->where('descuento_nombre', $name);
+		$this->db->where('descuento_id !=', $id);
 
 		return $this->db->count_all_results();
 	}	
@@ -137,7 +137,7 @@ class Descuento_model extends CI_Model {
 
 	public function delete_by_id($id)
 	{
-		$this->db->where('descuentos_id', $id);
+		$this->db->where('descuento_id', $id);
 		$this->db->delete($this->table);
 	}
 

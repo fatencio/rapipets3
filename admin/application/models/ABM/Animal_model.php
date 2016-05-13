@@ -3,12 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Animal_model extends CI_Model {
 
-	var $table = 'animales';
+	var $table = 'animal';
 
-	var $column_order = array('animales_nombre','animales_conraza','animales_contamanios',null); 	// columnas con la opcion de orden habilitada
-	var $column_search = array('animales_nombre','animales_conraza','animales_contamanios'); 		// columnas con la opcion de busqueda habilitada
+	var $column_order = array('animal_nombre','animal_conraza','animal_contamanios',null); 	// columnas con la opcion de orden habilitada
+	var $column_search = array('animal_nombre','animal_conraza','animal_contamanios'); 		// columnas con la opcion de busqueda habilitada
 
-	var $order = array('animales_nombre' => 'asc'); // default order 
+	var $order = array('animal_nombre' => 'asc'); // default order 
 
 
 	public function __construct()
@@ -21,7 +21,7 @@ class Animal_model extends CI_Model {
 	private function _get_datatables_query()
 	{
 	
-		$this->db->select('animales_id as id, animales_nombre as nombre, animales_conraza as conraza, animales_contamanios as contamanios');
+		$this->db->select('animal_id as id, animal_nombre as nombre, animal_conraza as conraza, animal_contamanios as contamanios');
         $this->db->from($this->table);
 
 		$i = 0;
@@ -88,9 +88,9 @@ class Animal_model extends CI_Model {
 
 	public function get_by_id($id)
 	{       
-		$this->db->select('animales_id as id, animales_nombre as nombre, animales_conraza as conraza, animales_contamanios as contamanios');
+		$this->db->select('animal_id as id, animal_nombre as nombre, animal_conraza as conraza, animal_contamanios as contamanios');
 		$this->db->from($this->table);
-		$this->db->where('animales_id',$id);
+		$this->db->where('animal_id',$id);
 		$query = $this->db->get();
 
 		return $query->row();
@@ -100,7 +100,7 @@ class Animal_model extends CI_Model {
 	public function check_duplicated($name)
 	{
 		$this->db->from($this->table);
-		$this->db->where('animales_nombre', $name);
+		$this->db->where('animal_nombre', $name);
 
 		return $this->db->count_all_results();
 	}
@@ -109,8 +109,8 @@ class Animal_model extends CI_Model {
 	public function check_duplicated_edit($id, $name)
 	{
 		$this->db->from($this->table);
-		$this->db->where('animales_nombre', $name);
-		$this->db->where('animales_id !=', $id);
+		$this->db->where('animal_nombre', $name);
+		$this->db->where('animal_id !=', $id);
 
 		return $this->db->count_all_results();
 	}	
@@ -132,8 +132,18 @@ class Animal_model extends CI_Model {
 
 	public function delete_by_id($id)
 	{
-		$this->db->where('animales_id', $id);
+		$this->db->where('animal_id', $id);
 		$this->db->delete($this->table);
 	}
+
+
+	public function get_all()
+	{       
+		$this->db->select('animal_id as id, animal_nombre as nombre, animal_conraza as conraza, animal_contamanios as contamanios');
+		$this->db->from($this->table);
+		$query = $this->db->get();
+
+		return $query->result();
+	}	
 
 }
