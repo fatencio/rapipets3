@@ -84,3 +84,9 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
+/* SERVER 
+	'username' => 'rapipets_user3',
+	'password' => '6[Z9Q=ybHl82',
+	'database' => 'rapipets_dbversion3',
+*/

@@ -3,13 +3,13 @@
     <div class="row items-push">
         <div class="col-sm-7">
             <h1 class="page-heading">
-                Tama&ntilde;os
+                Razas
             </h1>
         </div>
         <div class="col-sm-5 text-right hidden-xs">
             <ol class="breadcrumb push-10-t">
                 <li>ABM</li>
-                <li><a class="link-effect" href="javascript:void(0);" onclick="return loadController('Tamanio/index');">Tama&ntilde;os</a></li>
+                <li><a class="link-effect" href="javascript:void(0);" onclick="return loadController('Raza/index');">Razas</a></li>
             </ol>
         </div>
     </div>
@@ -19,7 +19,7 @@
 <div class="content">
     <div class="block">
         <div class="block-header">
-            <button class="btn btn-success" onclick="add_tamanio()"><i class="glyphicon glyphicon-plus"></i> Nuevo Tama&ntilde;o</button>
+            <button class="btn btn-success" onclick="add_raza()"><i class="glyphicon glyphicon-plus"></i> Nueva Raza</button>
             <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Recargar</button>
         </div>
 
@@ -27,7 +27,7 @@
             <table id="table" class="table table-bordered table-striped js-dataTable-full"  cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th>Tama&ntilde;o</th>
+                        <th>Raza</th>
                         <th>Animal Asignado</th>
                         <th style="width:70px;">Acción</th>
                     </tr>
@@ -55,7 +55,7 @@ $(document).ready(function() {
 
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "<?php echo BASE_PATH ?>/Tamanio/ajax_list",
+            "url": "<?php echo BASE_PATH ?>/Raza/ajax_list",
             "type": "POST"
         },
 
@@ -88,17 +88,17 @@ $(document).ready(function() {
 
 
 
-function add_tamanio()
+function add_raza()
 {
     save_method = 'add';
     $('#form')[0].reset(); // reset form on modals
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
     $('#modal_form').modal('show'); // show bootstrap modal
-    $('.modal-title').text('Nuevo Tamaño'); // Set Title to Bootstrap modal title
+    $('.modal-title').text('Nueva Raza'); // Set Title to Bootstrap modal title
 }
 
-function edit_tamanio(id)
+function edit_raza(id)
 {
     save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
@@ -107,17 +107,17 @@ function edit_tamanio(id)
 
     //Ajax Load data from ajax
     $.ajax({
-        url : "<?php echo BASE_PATH ?>/Tamanio/ajax_edit/" + id,        
+        url : "<?php echo BASE_PATH ?>/Raza/ajax_edit/" + id,        
         type: "GET",
         dataType: "JSON",
         success: function(data)
         {
             $('[name="id"]').val(data.id);
             $('[name="nombre"]').val(data.nombre);
-            $('[name="animal_asignado"]').val(data.tamanio_id_animal);
+            $('[name="animal_asignado"]').val(data.raza_id_animal);
 
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Editar Tamaño'); // Set title to Bootstrap modal title
+            $('.modal-title').text('Editar Raza'); // Set title to Bootstrap modal title
 
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -140,9 +140,9 @@ function save()
 
 
     if(save_method == 'add') {
-        url = "<?php echo BASE_PATH ?>/Tamanio/ajax_add";
+        url = "<?php echo BASE_PATH ?>/Raza/ajax_add";
     } else {
-        url = "<?php echo BASE_PATH ?>/Tamanio/ajax_update";
+        url = "<?php echo BASE_PATH ?>/Raza/ajax_update";
     }
 
 
@@ -184,13 +184,13 @@ function save()
 }
 
 
-function delete_tamanio(id)
+function delete_raza(id)
 {
-    if(confirm('¿Eliminar Tamaño?'))
+    if(confirm('¿Eliminar Raza?'))
     {
         // ajax delete data to database
         $.ajax({
-            url : "<?php echo BASE_PATH ?>/Tamanio/ajax_delete/" + id,
+            url : "<?php echo BASE_PATH ?>/Raza/ajax_delete/" + id,
             type: "POST",
             dataType: "JSON",
             success: function(data)
@@ -216,7 +216,7 @@ function delete_tamanio(id)
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title">Tamanio Form</h3>
+                <h3 class="modal-title">Raza Form</h3>
             </div>
             <div class="modal-body form">
                 <form action="#" id="form" class="form-horizontal">
@@ -238,14 +238,12 @@ function delete_tamanio(id)
                             <div class="col-md-9">
                                 <select name="animal_asignado" class="form-control">                       
                                     <option selected value="">Seleccione...</option>
-                                   
-                                    <?php foreach($animales as $animal){ ?>
-                                      <?php if ($animal->contamanios){ ?>
-                                          <option value="<?php echo $animal->id ?>"><?php echo $animal->nombre ?></option> 
-                                      <?php } ?>
-                                    <?php } ?>
 
-                            
+                                    <?php foreach($animales as $animal){ ?>
+                                       <?php if ($animal->conraza){ ?>
+                                        <option value="<?php echo $animal->id ?>"><?php echo $animal->nombre ?></option> 
+                                       <?php }?>
+                                    <?php } ?>
                                 </select>  
                                 <span class="help-block"></span>
                             </div>

@@ -441,6 +441,9 @@
                                         <li>
                                             <a href="javascript:void(0);" onclick="return loadController('Descuento/index');">Descuentos</a>
                                         </li>
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="return loadController('Raza/index');">Razas</a>
+                                        </li>
                                     </ul>
                                 </li>                                
                             </ul>

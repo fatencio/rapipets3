@@ -53,7 +53,8 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-	$BASE_PATH = "http://".$_SERVER["HTTP_HOST"]."/rapipets3/admin";
+	// $BASE_PATH = "http://".$_SERVER["HTTP_HOST"]."/~rapipets/rapipets3/admin"; // --> Servidor
+	$BASE_PATH = "http://".$_SERVER["HTTP_HOST"]."/rapipets3/admin";			  // --> Local
 	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 
 /*

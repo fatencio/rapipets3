@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Tamanio extends CI_Controller {
+class Raza extends CI_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('ABM/tamanio_model','tamanio');
+		$this->load->model('ABM/raza_model','raza');
 		$this->load->model('ABM/animal_model','animal');
 
 		$this->load->helper('url');		
@@ -19,34 +19,35 @@ class Tamanio extends CI_Controller {
 
 		$datos_vista["animales"] = $this->animal->get_all();
 
-		$this->load->view('ABM/tamanio_view', $datos_vista);
+		$this->load->view('ABM/raza_view', $datos_vista);
 	}
 
 
 	public function ajax_list()
 	{
-		$list = $this->tamanio->get_datatables();
+		$list = $this->raza->get_datatables();
 		$data = array();
 		$no = $_POST['start'];
 
-		foreach ($list as $tamanio) {
+		foreach ($list as $raza) {
 			$no++;
 			$row = array();
 
-			$row[] = $tamanio->nombre;
-			$row[] = $tamanio->animal_asignado;
+			$row[] = $raza->nombre;
+			$row[] = $raza->animal_asignado;
+
 
 			//add html for action
-			$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Editar" onclick="edit_tamanio('."'".$tamanio->id."'".')"><i class="glyphicon glyphicon-pencil"></i></a>
-				  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Eliminar" onclick="delete_tamanio('."'".$tamanio->id."'".')"><i class="glyphicon glyphicon-trash"></i></a>';
+			$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Editar" onclick="edit_raza('."'".$raza->id."'".')"><i class="glyphicon glyphicon-pencil"></i></a>
+				  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Eliminar" onclick="delete_raza('."'".$raza->id."'".')"><i class="glyphicon glyphicon-trash"></i></a>';
 		
 			$data[] = $row;
 		}
 
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->tamanio->count_all(),
-						"recordsFiltered" => $this->tamanio->count_filtered(),
+						"recordsTotal" => $this->raza->count_all(),
+						"recordsFiltered" => $this->raza->count_filtered(),
 						"data" => $data,
 				);
 		//output to json format
@@ -56,7 +57,7 @@ class Tamanio extends CI_Controller {
 
 	public function ajax_edit($id)
 	{
-		$data = $this->tamanio->get_by_id($id);
+		$data = $this->raza->get_by_id($id);
 
 		echo json_encode($data);
 	}
@@ -67,11 +68,11 @@ class Tamanio extends CI_Controller {
 		$this->_validate(true);
 
 		$data = array(
-				'tamanio_nombre' => $this->input->post('nombre'),
-				'tamanio_id_animal' => $this->input->post('animal_asignado'),
+				'raza_nombre' => $this->input->post('nombre'),
+				'raza_id_animal' => $this->input->post('animal_asignado'),
 			);
 
-		$insert = $this->tamanio->save($data);
+		$insert = $this->raza->save($data);
 
 		echo json_encode(array("status" => TRUE));
 	}
@@ -82,11 +83,11 @@ class Tamanio extends CI_Controller {
 		$this->_validate();
 
 		$data = array(
-				'tamanio_nombre' => $this->input->post('nombre'),
-				'tamanio_id_animal' => $this->input->post('animal_asignado'),				
+				'raza_nombre' => $this->input->post('nombre'),
+				'raza_id_animal' => $this->input->post('animal_asignado'),				
 			);
 
-		$this->tamanio->update(array('tamanio_id' => $this->input->post('id')), $data);
+		$this->raza->update(array('raza_id' => $this->input->post('id')), $data);
 
 		echo json_encode(array("status" => TRUE));
 	}
@@ -94,7 +95,7 @@ class Tamanio extends CI_Controller {
 
 	public function ajax_delete($id)
 	{
-		$this->tamanio->delete_by_id($id);
+		$this->raza->delete_by_id($id);
 		echo json_encode(array("status" => TRUE));
 	}
 
@@ -115,9 +116,9 @@ class Tamanio extends CI_Controller {
 
 		// Valida que no exista un registro con el mismo nombre
 		if ($add)
-			$duplicated = $this->tamanio->check_duplicated(trim($this->input->post('nombre')));
+			$duplicated = $this->raza->check_duplicated(trim($this->input->post('nombre')));
 		else
-			$duplicated = $this->tamanio->check_duplicated_edit($this->input->post('id'), trim($this->input->post('nombre')));
+			$duplicated = $this->raza->check_duplicated_edit($this->input->post('id'), trim($this->input->post('nombre')));
 
 		if ($duplicated > 0)
 		{
