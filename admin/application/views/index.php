@@ -444,6 +444,9 @@
                                         <li>
                                             <a href="javascript:void(0);" onclick="return loadController('Raza/index');">Razas</a>
                                         </li>
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="return loadController('Marca/index');">Marcas</a>
+                                        </li>
                                     </ul>
                                 </li>                                
                             </ul>

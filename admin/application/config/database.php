@@ -64,8 +64,8 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-//	'hostname' => 'localhost:4040',
+//	'hostname' => 'localhost',
+	'hostname' => 'localhost:4040',
 	'username' => 'root',
 	'password' => '',
 	'database' => 'rapipets3',
