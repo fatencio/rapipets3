@@ -5,20 +5,22 @@ class Marca_model extends CI_Model {
 
 	var $table = 'marca';
 	var $table_animal = 'marca_animal';
+	var $view = 'v_marca_animal';
 
-	var $column_order = array('marca_nombre', null); 	// columnas con la opcion de orden habilitada
-	var $column_search = array('marca_nombre'); 		// columnas con la opcion de busqueda habilitada
+	var $column_order = array("marca_nombre", "marca_animales", null); 	// columnas con la opcion de orden habilitada
+	var $column_search = array("marca_nombre", "marca_animales"); 		// columnas con la opcion de busqueda habilitada
+	//var $column_having = "GROUP_CONCAT(animal_nombre SEPARATOR ', ')";
 
     var $order = array('marca_nombre' => 'asc'); // default order 
 
 
-
+/*
 	var $column_order_animal = array('marca_animal_animal_id', 'marca_animal_marca_id',null); 	// columnas con la opcion de orden habilitada
 	var $column_search_animal = array('marca_animal_animal_id', 'marca_animal_marca_id'); // columnas con la opcion de busqueda habilitada
 
 
      var $order_animal = array('marca_animal_animal_id' => 'asc'); // default order 
-
+*/
 
 
 	public function __construct()
@@ -30,10 +32,11 @@ class Marca_model extends CI_Model {
 
 	private function _get_datatables_query()
 	{
-         
-		
-		$this->db->select('marca_id as id, marca_nombre as nombre');
-        $this->db->from($this->table);
+		$this->db->select("marca_id as id, marca_nombre as nombre, GROUP_CONCAT(animal_nombre SEPARATOR ', ') as animales");
+		$this->db->join('marca_animal', 'marca_id = marca_animal_marca_id');
+		$this->db->join('animal', 'marca_animal_animal_id = animal_id');
+        $this->db->from($this->view);
+        $this->db->group_by('marca_id, marca_nombre'); 
 
 		$i = 0;
 		foreach ($this->column_search as $item) // loop column 
@@ -56,6 +59,14 @@ class Marca_model extends CI_Model {
 			}
 			$i++;
 		}
+
+/*
+		if($_POST['search']['value'])
+		{
+		//	$this->db->having($this->column_having LIKE $_POST['search']['value']); 
+			$this->db->having("GROUP_CONCAT(animal_nombre SEPARATOR ', ') LIKE '%" . $_POST['search']['value'] . "%'"); 
+		}
+	*/	
 		
 		if(isset($_POST['order'])) // here order processing
 		{

@@ -6,7 +6,7 @@ class Servicio_Item extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('ABM/servicio_item_model','servicio_item');
+		$this->load->model('ABM/servicioitem_model','servicio_item');
 		$this->load->model('ABM/servicio_model','servicio');
 
 		$this->load->helper('url');		
