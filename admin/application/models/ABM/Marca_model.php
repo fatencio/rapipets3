@@ -119,6 +119,32 @@ class Marca_model extends CI_Model {
 	}
 
 
+	   public function get_by_id_nombre_animal($id)
+	   {
+		$data = new stdClass();
+
+		$this->db->select('marca_id as id, marca_nombre as nombre');		
+		$this->db->from($this->table);
+		$this->db->where('marca_id',$id);
+		$query = $this->db->get();
+
+		$data = $query->row();
+
+		// Recupera animales asociados a la marca
+		
+		$this->db->select('animal_nombre');		
+		$this->db->from($this->table_animal);
+		$this->db->join('animal', 'marca_animal_animal_id = animal_id');
+		$this->db->where('marca_animal_marca_id', $id);
+		$query = $this->db->get();
+
+
+		$data->animales = $query->result();
+
+		return $data;
+	   }
+        
+
 	public function check_duplicated($name)
 	{
 		$this->db->from($this->table);

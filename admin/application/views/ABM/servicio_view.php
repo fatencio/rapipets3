@@ -3,13 +3,14 @@
     <div class="row items-push">
         <div class="col-sm-7">
             <h1 class="page-heading">
-                Animales
+                Categorías Servicio
             </h1>
         </div>
         <div class="col-sm-5 text-right hidden-xs">
             <ol class="breadcrumb push-10-t">
                 <li>ABM</li>
-                <li><a class="link-effect" href="javascript:void(0);" onclick="return loadController('Animal/index');">Animales</a></li>
+                <li>Servicios</li>
+                <li><a class="link-effect" href="javascript:void(0);" onclick="return loadController('Servicio/index');">Categorías</a></li>
             </ol>
         </div>
     </div>
@@ -19,7 +20,7 @@
 <div class="content">
     <div class="block">
         <div class="block-header">
-            <button class="btn btn-success" onclick="add_animal()"><i class="glyphicon glyphicon-plus"></i> Nuevo Animal</button>
+            <button class="btn btn-success" onclick="add_servicio()"><i class="glyphicon glyphicon-plus"></i> Nuevo Servicio</button>
             <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Recargar</button>
         </div>
 
@@ -28,14 +29,13 @@
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Con Raza</th>
-                        <th >Con Tamaños</th>
                         <th style="width:70px;">Acción</th>
                     </tr>
                 </thead>
                 <tbody>
                 </tbody>
             </table>
+
         </div>   
     </div>         
 </div>
@@ -56,7 +56,7 @@ $(document).ready(function() {
 
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "<?php echo BASE_PATH ?>/Animal/ajax_list",
+            "url": "<?php echo BASE_PATH ?>/Servicio/ajax_list",
             "type": "POST"
         },
 
@@ -67,7 +67,6 @@ $(document).ready(function() {
             "orderable": false, //set not orderable
         },
         ],
-
     });
 
 
@@ -89,17 +88,17 @@ $(document).ready(function() {
 
 
 
-function add_animal()
+function add_servicio()
 {
     save_method = 'add';
     $('#form')[0].reset(); // reset form on modals
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
     $('#modal_form').modal('show'); // show bootstrap modal
-    $('.modal-title').text('Nuevo Animal'); // Set Title to Bootstrap modal title
+    $('.modal-title').text('Nuevo Servicio'); // Set Title to Bootstrap modal title
 }
 
-function edit_animal(id)
+function edit_servicio(id)
 {
     save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
@@ -108,27 +107,22 @@ function edit_animal(id)
 
     //Ajax Load data from ajax
     $.ajax({
-        url : "<?php echo BASE_PATH ?>/Animal/ajax_edit/" + id,        
+        url : "<?php echo BASE_PATH ?>/Servicio/ajax_edit/" + id,        
         type: "GET",
         dataType: "JSON",
         success: function(data)
         {
             $('[name="id"]').val(data.id);
             $('[name="nombre"]').val(data.nombre);
-
-            contamanios = (data.contamanios == '1' ? true : false);
-            $('[name="contamanios"]').prop('checked', contamanios);
-
-            conraza = (data.conraza == '1' ? true : false);     
-            $('[name="conraza"]').prop('checked', conraza);       
+           
 
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Editar Animal'); // Set title to Bootstrap modal title
+            $('.modal-title').text('Editar Servicio'); // Set title to Bootstrap modal title
 
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-            alert('Error al cargar datos. ' + textStatus);
+            alert('Error al cargar datos');
         }
     });
 }
@@ -146,9 +140,9 @@ function save()
 
 
     if(save_method == 'add') {
-        url = "<?php echo BASE_PATH ?>/Animal/ajax_add";
+        url = "<?php echo BASE_PATH ?>/Servicio/ajax_add";
     } else {
-        url = "<?php echo BASE_PATH ?>/Animal/ajax_update";
+        url = "<?php echo BASE_PATH ?>/Servicio/ajax_update";
     }
 
 
@@ -181,7 +175,7 @@ function save()
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-            alert('Error al insertar / editar. ' + errorThrown);
+            alert('Error adding / update data ' + textStatus);
             $('#btnSave').text('Guardar'); //change button text
             $('#btnSave').attr('disabled',false); //set button enable 
 
@@ -189,13 +183,13 @@ function save()
     });
 }
 
-function delete_animal(id)
+function delete_servicio(id)
 {
-    if(confirm('¿Eliminar Animal?'))
+    if(confirm('¿Eliminar Servicio?'))
     {
         // ajax delete data to database
         $.ajax({
-            url : "<?php echo BASE_PATH ?>/Animal/ajax_delete/" + id,
+            url : "<?php echo BASE_PATH ?>/Servicio/ajax_delete/" + id,
             type: "POST",
             dataType: "JSON",
             success: function(data)
@@ -206,7 +200,7 @@ function delete_animal(id)
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
-                alert('Error al eliminar. ' + textStatus);
+                alert('Error deleting data');
             }
         });
 
@@ -221,7 +215,7 @@ function delete_animal(id)
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title">Animal Form</h3>
+                <h3 class="modal-title">Servicio Form</h3>
             </div>
             <div class="modal-body form">
                 <form action="#" id="form" class="form-horizontal">
@@ -233,28 +227,6 @@ function delete_animal(id)
                             <label class="control-label col-md-3">Nombre</label>
                             <div class="col-md-9">
                                 <input name="nombre" placeholder="Nombre" class="form-control" type="text">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-
-                        <!-- CON RAZA --> 
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Con Raza</label>
-                            <div class="col-md-9">
-                                <label class="css-input switch switch-info">
-                                    <input type="checkbox" name="conraza"><span></span>
-                                </label>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-
-                        <!-- CON TAMANIOS --> 
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Con Tama&ntilde;os</label>
-                            <div class="col-md-9">
-                                <label class="css-input switch switch-info">
-                                    <input type="checkbox" name="contamanios"><span></span>
-                                </label>
                                 <span class="help-block"></span>
                             </div>
                         </div>

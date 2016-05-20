@@ -3,13 +3,13 @@
     <div class="row items-push">
         <div class="col-sm-7">
             <h1 class="page-heading">
-                Animales
+                Rubros
             </h1>
         </div>
         <div class="col-sm-5 text-right hidden-xs">
             <ol class="breadcrumb push-10-t">
                 <li>ABM</li>
-                <li><a class="link-effect" href="javascript:void(0);" onclick="return loadController('Animal/index');">Animales</a></li>
+                <li><a class="link-effect" href="javascript:void(0);" onclick="return loadController('Rubro/index');">Rubros</a></li>
             </ol>
         </div>
     </div>
@@ -19,7 +19,7 @@
 <div class="content">
     <div class="block">
         <div class="block-header">
-            <button class="btn btn-success" onclick="add_animal()"><i class="glyphicon glyphicon-plus"></i> Nuevo Animal</button>
+            <button class="btn btn-success" onclick="add_rubro()"><i class="glyphicon glyphicon-plus"></i> Nuevo Rubro</button>
             <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Recargar</button>
         </div>
 
@@ -28,8 +28,12 @@
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Con Raza</th>
-                        <th >Con Tamaños</th>
+                        <th>Raza</th>
+                        <th >Tamaño</th>     
+                        <th>Presentación</th>
+                        <th >Marca</th>    
+                        <th>Edad</th>
+                        <th >Medicados</th>                                                                       
                         <th style="width:70px;">Acción</th>
                     </tr>
                 </thead>
@@ -56,7 +60,7 @@ $(document).ready(function() {
 
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "<?php echo BASE_PATH ?>/Animal/ajax_list",
+            "url": "<?php echo BASE_PATH ?>/Rubro/ajax_list",
             "type": "POST"
         },
 
@@ -67,7 +71,6 @@ $(document).ready(function() {
             "orderable": false, //set not orderable
         },
         ],
-
     });
 
 
@@ -89,17 +92,17 @@ $(document).ready(function() {
 
 
 
-function add_animal()
+function add_rubro()
 {
     save_method = 'add';
     $('#form')[0].reset(); // reset form on modals
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
     $('#modal_form').modal('show'); // show bootstrap modal
-    $('.modal-title').text('Nuevo Animal'); // Set Title to Bootstrap modal title
+    $('.modal-title').text('Nuevo Rubro'); // Set Title to Bootstrap modal title
 }
 
-function edit_animal(id)
+function edit_rubro(id)
 {
     save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
@@ -108,27 +111,39 @@ function edit_animal(id)
 
     //Ajax Load data from ajax
     $.ajax({
-        url : "<?php echo BASE_PATH ?>/Animal/ajax_edit/" + id,        
+        url : "<?php echo BASE_PATH ?>/Rubro/ajax_edit/" + id,        
         type: "GET",
         dataType: "JSON",
         success: function(data)
         {
             $('[name="id"]').val(data.id);
             $('[name="nombre"]').val(data.nombre);
-
+           
             contamanios = (data.contamanios == '1' ? true : false);
             $('[name="contamanios"]').prop('checked', contamanios);
 
             conraza = (data.conraza == '1' ? true : false);     
-            $('[name="conraza"]').prop('checked', conraza);       
+            $('[name="conraza"]').prop('checked', conraza);   
 
+            conpresentacion = (data.conpresentacion == '1' ? true : false);
+            $('[name="conpresentacion"]').prop('checked', conpresentacion);
+
+            conmarca = (data.conmarca == '1' ? true : false);     
+            $('[name="conmarca"]').prop('checked', conmarca);   
+
+            conedad = (data.conedad == '1' ? true : false);
+            $('[name="conedad"]').prop('checked', conedad);
+
+            conmedicados = (data.conmedicados == '1' ? true : false);     
+            $('[name="conmedicados"]').prop('checked', conmedicados);   
+                                    
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Editar Animal'); // Set title to Bootstrap modal title
+            $('.modal-title').text('Editar Rubro'); // Set title to Bootstrap modal title
 
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-            alert('Error al cargar datos. ' + textStatus);
+            alert('Error al cargar datos');
         }
     });
 }
@@ -146,9 +161,9 @@ function save()
 
 
     if(save_method == 'add') {
-        url = "<?php echo BASE_PATH ?>/Animal/ajax_add";
+        url = "<?php echo BASE_PATH ?>/Rubro/ajax_add";
     } else {
-        url = "<?php echo BASE_PATH ?>/Animal/ajax_update";
+        url = "<?php echo BASE_PATH ?>/Rubro/ajax_update";
     }
 
 
@@ -181,7 +196,7 @@ function save()
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-            alert('Error al insertar / editar. ' + errorThrown);
+            alert('Error adding / update data ' + textStatus);
             $('#btnSave').text('Guardar'); //change button text
             $('#btnSave').attr('disabled',false); //set button enable 
 
@@ -189,13 +204,13 @@ function save()
     });
 }
 
-function delete_animal(id)
+function delete_rubro(id)
 {
-    if(confirm('¿Eliminar Animal?'))
+    if(confirm('¿Eliminar Rubro?'))
     {
         // ajax delete data to database
         $.ajax({
-            url : "<?php echo BASE_PATH ?>/Animal/ajax_delete/" + id,
+            url : "<?php echo BASE_PATH ?>/Rubro/ajax_delete/" + id,
             type: "POST",
             dataType: "JSON",
             success: function(data)
@@ -206,7 +221,7 @@ function delete_animal(id)
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
-                alert('Error al eliminar. ' + textStatus);
+                alert('Error deleting data');
             }
         });
 
@@ -221,13 +236,12 @@ function delete_animal(id)
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title">Animal Form</h3>
+                <h3 class="modal-title">Rubro Form</h3>
             </div>
             <div class="modal-body form">
                 <form action="#" id="form" class="form-horizontal">
                     <input type="hidden" value="" name="id"/> 
                     <div class="form-body">
-
                         <!-- NOMBRE --> 
                         <div class="form-group">
                             <label class="control-label col-md-3">Nombre</label>
@@ -235,30 +249,79 @@ function delete_animal(id)
                                 <input name="nombre" placeholder="Nombre" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
-                        </div>
+                        </div>                    
+                        <div class="row">
+                            <div class="col-md-6">
 
-                        <!-- CON RAZA --> 
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Con Raza</label>
-                            <div class="col-md-9">
-                                <label class="css-input switch switch-info">
-                                    <input type="checkbox" name="conraza"><span></span>
-                                </label>
-                                <span class="help-block"></span>
+                                <!-- CON RAZA --> 
+                                <div class="form-group">
+                                    <label class="control-label col-md-6">Con Raza</label>
+                                    <div class="col-md-6">
+                                        <label class="css-input switch switch-info">
+                                            <input type="checkbox" name="conraza"><span></span>
+                                        </label>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+
+                                <!-- CON TAMANIOS --> 
+                                <div class="form-group">
+                                    <label class="control-label col-md-6">Con Tama&ntilde;o</label>
+                                    <div class="col-md-6">
+                                        <label class="css-input switch switch-info">
+                                            <input type="checkbox" name="contamanios"><span></span>
+                                        </label>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+
+                                <!-- CON PRESENTACION --> 
+                                <div class="form-group">
+                                    <label class="control-label col-md-6">Con Presentación</label>
+                                    <div class="col-md-6">
+                                        <label class="css-input switch switch-info">
+                                            <input type="checkbox" name="conpresentacion"><span></span>
+                                        </label>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>                                
                             </div>
-                        </div>
+                            <div class="col-md-6">
 
-                        <!-- CON TAMANIOS --> 
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Con Tama&ntilde;os</label>
-                            <div class="col-md-9">
-                                <label class="css-input switch switch-info">
-                                    <input type="checkbox" name="contamanios"><span></span>
-                                </label>
-                                <span class="help-block"></span>
+                                <!-- CON MARCA --> 
+                                <div class="form-group">
+                                    <label class="control-label col-md-6">Con Marca</label>
+                                    <div class="col-md-6">
+                                        <label class="css-input switch switch-info">
+                                            <input type="checkbox" name="conmarca"><span></span>
+                                        </label>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+
+                                <!-- CON EDAD --> 
+                                <div class="form-group">
+                                    <label class="control-label col-md-6">Con Edad</label>
+                                    <div class="col-md-6">
+                                        <label class="css-input switch switch-info">
+                                            <input type="checkbox" name="conedad"><span></span>
+                                        </label>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+
+                                <!-- CON MEDICADOS --> 
+                                <div class="form-group">
+                                    <label class="control-label col-md-6">Con Medicados</label>
+                                    <div class="col-md-6">
+                                        <label class="css-input switch switch-info">
+                                            <input type="checkbox" name="conmedicados"><span></span>
+                                        </label>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>  
                             </div>
-                        </div>
-
+                        </div>                                             
                     </div>
                 </form>
             </div>

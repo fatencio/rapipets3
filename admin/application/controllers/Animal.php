@@ -59,7 +59,6 @@ class Animal extends CI_Controller {
 	public function ajax_edit($id)
 	{
 		$data = $this->animal->get_by_id($id);
-	//	$data->dob = ($data->dob == '0000-00-00') ? '' : $data->dob; // if 0000-00-00 set tu empty for datepicker compatibility
 		echo json_encode($data);
 	}
 
@@ -115,20 +114,6 @@ class Animal extends CI_Controller {
 			$data['error_string'][] = 'Ingrese un Nombre';
 			$data['status'] = FALSE;
 		}
-
-		if($this->input->post('conraza') == '')
-		{
-			$data['inputerror'][] = 'conraza';
-			$data['error_string'][] = 'Seleccione una opción';
-			$data['status'] = FALSE;
-		}
-
-		if($this->input->post('contamanios') == '')
-		{
-			$data['inputerror'][] = 'contamanios';
-			$data['error_string'][] = 'Seleccione una opción';
-			$data['status'] = FALSE;
-		}		
 
 		// Valida que no exista un registro con el mismo nombre
 		if ($add)

@@ -28,6 +28,7 @@
                 <thead>
                     <tr>
                         <th>Marca</th>
+                        <th>Animal Asignado</th>
                         <th style="width:70px;">Acción</th>
                     </tr>
                 </thead>

@@ -34,7 +34,20 @@ class Marca extends CI_Controller {
 			$row = array();
 
 			$row[] = $marca->nombre;
-		//	$row[] = $marca->animal_asignado;
+			
+		
+	        $animales = null;
+			$animales = $this->marca->get_by_id_nombre_animal ($marca->id);
+			$lista_animales = '';
+
+            foreach ($animales->animales as $animal) {
+             
+              $lista_animales .=  $animal->animal_nombre . ','; 
+             
+            }
+
+            $lista_animales = trim($lista_animales, ','); //Eliminamos la última coma
+            $row[] = $lista_animales;
 
 			//add html for action
 			$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Editar" onclick="edit_marca('."'".$marca->id."'".')"><i class="glyphicon glyphicon-pencil"></i></a>
@@ -185,6 +198,21 @@ class Marca extends CI_Controller {
 			$data['status'] = FALSE;
 		}		
 		*/
+
+      
+        //if (empty($_POST["animal_asignado"])) {
+
+      
+		if($this->input->post('animal_asignado') == ''){
+		
+			$data['inputerror'][] = 'animal_asignado[]';
+			$data['error_string'][] = 'Seleccione un animal';
+			$data['status'] = FALSE;
+
+
+		}		
+
+       
 
 		if($data['status'] === FALSE)
 		{

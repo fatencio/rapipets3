@@ -429,24 +429,61 @@
                                 <li class="open">
                                     <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span class="sidebar-mini-hide">ABM</span></a>
                                     <ul>
+                                        <!-- ANIMALES -->
                                         <li>
-                                            <a href="javascript:void(0);" onclick="return loadController('Animal/index');">Animales</a>
-                                        </li>
+                                            <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="fa fa-paw"></i><span class="sidebar-mini-hide">Animales</span></a>
+                                            <ul>
+                                                <li>
+                                                    <a href="javascript:void(0);" onclick="return loadController('Animal/index');">Animales</a>
+                                                </li>   
+                                                <li>
+                                                    <a href="javascript:void(0);" onclick="return loadController('Tamanio/index');">Tamaños</a>
+                                                </li>   
+                                                <li>
+                                                    <a href="javascript:void(0);" onclick="return loadController('Raza/index');">Razas</a>
+                                                </li>                                                
+                                            </ul>
+                                        </li>  
+
+                                        <!-- ARTICULOS -->
                                         <li>
-                                            <a href="javascript:void(0);" onclick="return loadController('Presentacion/index');">Presentaciones</a>
-                                        </li>
+                                            <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-tag"></i><span class="sidebar-mini-hide">Artículos</span></a>
+                                            <ul>
+                                                <li>
+                                                    <a href="javascript:void(0);" onclick="return loadController('Articulo/index');">Artículos</a>
+                                                </li>                                                                                  
+                                                <li>
+                                                    <a href="javascript:void(0);" onclick="return loadController('Rubro/index');">Rubros</a>
+                                                </li>   
+                                                <li>
+                                                    <a href="javascript:void(0);" onclick="return loadController('Presentacion/index');">Presentaciones</a>
+                                                </li>
+                                              
+                                                <li>
+                                                    <a href="javascript:void(0);" onclick="return loadController('Descuento/index');">Descuentos</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="javascript:void(0);" onclick="return loadController('Marca/index');">Marcas</a>
+                                                </li>                                                  
+                                            </ul>
+                                        </li>    
+
+
+                                        <!-- SERVICIOS -->
                                         <li>
-                                            <a href="javascript:void(0);" onclick="return loadController('Tamanio/index');">Tamaños</a>
-                                        </li>                                        
-                                        <li>
-                                            <a href="javascript:void(0);" onclick="return loadController('Descuento/index');">Descuentos</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" onclick="return loadController('Raza/index');">Razas</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" onclick="return loadController('Marca/index');">Marcas</a>
-                                        </li>
+                                            <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-wrench"></i><span class="sidebar-mini-hide">Servicios</span></a>
+                                            <ul>
+                                                <li>
+                                                    <a href="javascript:void(0);" onclick="return loadController('Servicio/index');">Categorías Servicio</a>
+                                                </li>      
+                                                <li>
+                                                    <a href="javascript:void(0);" onclick="return loadController('Servicio_Item/index');">Items Servicio</a>
+                                                </li>  
+                                            </ul>
+                                        </li>   
+                                                                        
+                                                                         
                                     </ul>
                                 </li>                                
                             </ul>
